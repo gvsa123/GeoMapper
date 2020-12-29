@@ -10,8 +10,7 @@ def generate_coordinates(LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, PRECISION=4):
     LON_MIN : Min longitude value
     LON_MAX : Max longitude value
     
-    PRECISION : Decimal places for COORDINATES. Defaults to 4
-    to avoid missing actual geographic location from random choices
+    PRECISION : Default decimal places for COORDINATES.
     
     Example
     -------

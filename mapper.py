@@ -3,9 +3,6 @@ import time
 import folium
 import os
 
-# from folium.plugins import MarkerCluster # How to use
-
-
 """
 TODO
 - locate_addresses() and raw_location() should be in a separete module, and mapper.py

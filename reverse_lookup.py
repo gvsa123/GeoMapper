@@ -1,8 +1,8 @@
 from locator import *
 from geo_gen import generate_coordinates
 
-def reverse_lookup(COORDINATES):
-    """Look up LOCATIONS based on COORDINATES
+def lookup_coordinates(COORDINATES):
+    """Look up COORDINATES and convert to geopy.location
 
     Parameters
     ----------
@@ -17,7 +17,7 @@ def reverse_lookup(COORDINATES):
     return addresses
 
 def main():
-
+    # TEST
     COORDINATES = [
         generate_coordinates(
         35.689831, 51.434823, 36.688983, 48.471208
@@ -25,7 +25,7 @@ def main():
     ]
     print(COORDINATES)
 
-    test = [reverse_lookup(x) for x in COORDINATES]
+    test = [lookup_coordinates(x) for x in COORDINATES]
 
     geo_mapping(test)
 
