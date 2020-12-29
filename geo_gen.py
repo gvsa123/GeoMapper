@@ -1,6 +1,6 @@
 import random
 
-def generate_coordinates(LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, PRECISION=4):
+def generate_coordinates(LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, PRECISION=6):
     """Generate random latitude, longitude
 
     Parameters
@@ -14,10 +14,10 @@ def generate_coordinates(LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, PRECISION=4):
     
     Example
     -------
-    LAT_MIN = 50.9113[186]
-    LAT_MAX = 50.9002[263]
-    LON_MIN = -114.1263[383]
-    LON_MAX = -114.0992[887]
+    LAT_MIN = 50.9113
+    LAT_MAX = 50.9002
+    LON_MIN = -114.1263
+    LON_MAX = -114.0992
 
     TODO:
     - set parameter for number COORDINATES to generate

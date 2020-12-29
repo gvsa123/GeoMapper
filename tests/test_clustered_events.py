@@ -1,4 +1,4 @@
-import locate_addresses as la
+import lookup_coordinates as la
 import raw_location as rl
 
 ADDR = [

@@ -5,7 +5,7 @@ import os
 
 """
 TODO
-- locate_addresses() and raw_location() should be in a separete module, and mapper.py
+- lookup_coordinates() and raw_location() should be in a separete module, and mapper.py
 be strictly for mapping!
 """
 
@@ -60,7 +60,7 @@ def main():
         "Surigao Philippines"
     ]
 
-    LOCATIONS = locate_addresses(ADDR)
+    LOCATIONS = lookup_coordinates(ADDR)
     COORDINATES = raw_location(LOCATIONS)
     geo_mapping(COORDINATES)
     time.sleep(5)

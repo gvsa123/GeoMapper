@@ -5,7 +5,7 @@ from geopy.extra.rate_limiter import RateLimiter
 GEOLOCATOR = Nominatim(user_agent="TestMapper")
 geocode = RateLimiter(GEOLOCATOR.geocode, min_delay_seconds=2)
 
-def locate_addresses(ADDR):
+def lookup_coordinates(ADDR):
     """Returns address as a geopy object
     
     Parameters
