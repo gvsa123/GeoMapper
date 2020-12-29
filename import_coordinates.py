@@ -6,7 +6,7 @@ from reverse_lookup import lookup_coordinates
 from mapper import geo_mapping
 from locator import raw_location
 from ip2geotools.databases.noncommercial import DbIpCity
-from ip2geotools.databases.noncommercial import HostIP
+from ip2geotools.errors import ServiceError
 
 CSV_FILE = './Data/failed_logins.csv'
 
@@ -16,7 +16,7 @@ def ip_from_csv(CSV_FILE):
     ip_dataframe = pd.read_csv(
         CSV_FILE,
         delimiter='\t',
-        names=['id', 'success', 'user', 'login_date', 'ip_address'],
+        names=['id', 'user_id', 'user_login', 'failed_login_date', 'login_attempt_ip'],
         usecols=['login_date', 'ip_address']
     ).drop_duplicates(subset='ip_address')
     
@@ -49,7 +49,7 @@ def ip_to_coord(IP_LIST):
         except KeyError as ke:
             print(f"KeyError: {ke}")
             pass
-        except ip2geotools.errors.ServiceError as se:
+        except ServiceError as se:
             print(f"ServiceError: {se}")
             pass
 
