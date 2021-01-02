@@ -4,6 +4,7 @@ import time
 
 from ip2geotools.databases.noncommercial import DbIpCity
 from ip2geotools.errors import ServiceError
+from ip2geotools.errors import InvalidRequestError
 
 CSV_FILE = './Data/failed_logins.csv'
 
@@ -42,7 +43,7 @@ def df_to_list(ip_dataframe):
     ip_dataframe : pandas dataframe
     """
     IP_LIST = ip_dataframe.values.tolist()
-    print(f"Converting {len(IP_LIST)} ip_addresses to list")
+    print(f"Converted {len(IP_LIST)} ip_addresses to list")
 
     return IP_LIST
 
@@ -51,22 +52,25 @@ def ip_to_coord(IP_LIST):
     TODO:
     - create KeyError counter? Or limit accuracy of COORDINATES?
     """
-    COORDINATES = []
+    COORDINATES = set()
+    print(f"Converting {len(IP_LIST)} to COORDINATES")
     for ip in IP_LIST:
         try:
             response = DbIpCity.get(ip, api_key='free') # DbIpCity ServiceError?
             c = (response.latitude, response.longitude)
-            COORDINATES.append(c)
+            COORDINATES.add(c)
             print(f"{ip} ---> ({response.latitude},{response.longitude})")
             time.sleep(1)
-        except KeyError as ke:
-            print(f"KeyError: {ke}")
-            print(ip)
+        except KeyError as e:
+            print(f"Error: {e}")
             pass
-        except ServiceError as se:
-            print(f"ServiceError: {se}")
+        except ServiceError as e:
+            print(f"Error: {e}")
             pass
-
+        except InvalidRequestError as e:
+            print(f"Error: {e}")
+            pass
+    print(f"Processing {len(COORDINATES)} COORDINATES.")
     return COORDINATES
 
 def main():

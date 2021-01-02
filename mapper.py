@@ -55,9 +55,9 @@ def geo_mapping(COORDINATES):
             fill=False,
             fill_color='#7de8b5'
         ).add_to(m)
-        print(point.latitude, point.longitude)
+        # print(point.latitude, point.longitude)
 
-        time.sleep(2)
+        # time.sleep(2)
     bounds = m.get_bounds()
     m.fit_bounds(bounds, padding=(20,20))
     m.save('./Maps/map.html')
