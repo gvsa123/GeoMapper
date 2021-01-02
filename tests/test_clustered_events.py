@@ -1,5 +1,5 @@
-import lookup_coordinates as la
-import raw_location as rl
+import address_locator as al
+import point_extractor as gl
 
 ADDR = [
     "Tagum Philippines",
@@ -8,5 +8,5 @@ ADDR = [
     "Surigao Philippines"
 ]
 
-COORDINATES = rl(la(ADDR))
+COORDINATES = gl(al(ADDR))
 

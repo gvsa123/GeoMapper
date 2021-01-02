@@ -2,16 +2,16 @@ import mapper
 import pandas as pd
 import time
 
-from reverse_lookup import lookup_coordinates
-from mapper import geo_mapping
-from locator import raw_location
 from ip2geotools.databases.noncommercial import DbIpCity
 from ip2geotools.errors import ServiceError
 
 CSV_FILE = './Data/failed_logins.csv'
 
 def ip_from_csv(CSV_FILE):
-    """Import COORDINATES from csvfile"""
+    """Import COORDINATES from csvfile. Removes duplicates.
+    TODO:
+    - can be depricated when database pipe functional
+    """
 
     ip_dataframe = pd.read_csv(
         CSV_FILE,
@@ -22,14 +22,27 @@ def ip_from_csv(CSV_FILE):
     
     return ip_dataframe
 
-def ip_df_to_list(ip_dataframe):
+def ip_from_query(QUERY_RESULT):
+    """Takes the result of query_database and converts into df of ip_address
+    """
+    ip_dataframe = pd.DataFrame(
+        QUERY_RESULT,
+        columns=['id', 'user_id', 'user_login', 'failed_login_date', 'login_attempt_ip'],    
+    )
+
+    ip_dataframe.drop_duplicates(subset='login_attempt_ip', inplace=True)
+    print("duplicates removed {}".format(ip_dataframe.shape))
+
+    return ip_dataframe['login_attempt_ip']
+
+def df_to_list(ip_dataframe):
     """Convert ip_dataframe to list of ip addresses
     Parameters
     ----------
     ip_dataframe : pandas dataframe
     """
-    IP_LIST = ip_dataframe['ip_address'].values.tolist()
-    print("IP_LIST : {}".format(len(IP_LIST)))
+    IP_LIST = ip_dataframe.values.tolist()
+    print(f"Converting {len(IP_LIST)} ip_addresses to list")
 
     return IP_LIST
 
@@ -39,7 +52,7 @@ def ip_to_coord(IP_LIST):
     - create KeyError counter? Or limit accuracy of COORDINATES?
     """
     COORDINATES = []
-    for ip in IP_LIST[20:25]:
+    for ip in IP_LIST:
         try:
             response = DbIpCity.get(ip, api_key='free') # DbIpCity ServiceError?
             c = (response.latitude, response.longitude)
@@ -48,6 +61,7 @@ def ip_to_coord(IP_LIST):
             time.sleep(1)
         except KeyError as ke:
             print(f"KeyError: {ke}")
+            print(ip)
             pass
         except ServiceError as se:
             print(f"ServiceError: {se}")
@@ -56,11 +70,17 @@ def ip_to_coord(IP_LIST):
     return COORDINATES
 
 def main():
-    ip_dataframe = ip_from_csv(CSV_FILE)
-    IP_LIST = ip_df_to_list(ip_dataframe)
+    from locator import point_extractor
+    from mapper import geo_mapping
+    from reverse_lookup import coordinate_locator
+    from query_database import failed_logins
+    
+    QUERY_RESULT = failed_logins()
+    ip_dataframe = ip_from_query(QUERY_RESULT)
+    IP_LIST = df_to_list(ip_dataframe)
     raw_coordinates = ip_to_coord(IP_LIST)
-    LOCATIONS = [lookup_coordinates(c) for c in raw_coordinates]
-    COORDINATES = raw_location(LOCATIONS)
+    LOCATIONS = [coordinate_locator(c) for c in raw_coordinates]
+    COORDINATES = point_extractor(LOCATIONS)
     geo_mapping(COORDINATES)
 
 if __name__ == "__main__":

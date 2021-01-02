@@ -1,6 +1,6 @@
 import random
 
-def generate_coordinates(LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, PRECISION=6):
+def generate_coordinates(LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, PRECISION=4):
     """Generate random latitude, longitude
 
     Parameters

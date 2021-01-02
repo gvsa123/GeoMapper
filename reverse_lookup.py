@@ -1,38 +1,34 @@
-from locator import *
+from geopy.geocoders import Nominatim
+from geopy.extra.rate_limiter import RateLimiter
 from geo_gen import generate_coordinates
+from locator import coordinate_locator
 from mapper import geo_mapping
 
-def lookup_coordinates(COORDINATES):
-    """Look up COORDINATES and convert to geopy.location
+GEOLOCATOR = Nominatim(user_agent="TestMapper")
+geocode = RateLimiter(GEOLOCATOR.geocode, min_delay_seconds=2)
 
-    Parameters
-    ----------
-    COORDINATES : [(LATITUDE, LONGITUDE)]
-
-    Returns
-    -------
-    <class 'geopy.location.Location'>
-    """
-
-    addresses = GEOLOCATOR.reverse(COORDINATES)
-    return addresses
-
-def main():
-    
-    COORDINATES = [
-        generate_coordinates(
-        50.278923, 3.944454, 51.170177, 10.461686,
-        PRECISION=6) for x in range(10)
-    ]
-    print(COORDINATES)
+def main(COORDINATES):
     """
     create test_geo_gen.py and test_geo_gen.py
     raise TypeError("`address` must not be None")
     TypeError: `address` must not be None
     """
-    test = [lookup_coordinates(x) for x in COORDINATES]
+    test = []
+    for x in COORDINATES:
+        print("x = {}".format(x))
+        y = coordinate_locator(x)
+        test.append(y)
+        print("y = {}".format(y))
 
+    # test = [coordinate_locator(x) for x in COORDINATES] # Move to test
+ 
     geo_mapping(test)
 
 if __name__ == "__main__":
-    main()
+    COORDINATES = [
+        generate_coordinates(
+        48.1701,49.2789,-112.4616,-113.9444,
+        PRECISION=6) for x in range(5)
+    ]
+    print(COORDINATES)
+    main(COORDINATES)

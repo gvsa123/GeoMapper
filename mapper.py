@@ -3,11 +3,8 @@ import time
 import folium
 import os
 
-"""
-TODO
-- lookup_coordinates() and raw_location() should be in a separete module, and mapper.py
-be strictly for mapping!
-"""
+from locator import address_locator
+from locator import point_extractor
 
 def render_map():
     """Render map on browser after creation in geo_mapping()"""
@@ -23,13 +20,29 @@ def render_map():
 
 def geo_mapping(COORDINATES):
     """Map COORDINATES and save to html file
+    Parameters
+    ----------
+    COORDINATES : [(LATITUDE, LONGITUDE)]
+    List of <class 'geopy.location.Location'>
+    
+    Example
+    -------
+    [Location(Цагаан-Овоо, Дорнод, Монгол улс ᠮᠤᠩᠭᠤᠯ ᠤᠯᠤᠰ, (48.456334749999996, 113.16934292655316, 0.0)),
+    Location(Баяндун, Дорнод, Монгол улс ᠮᠤᠩᠭᠤᠯ ᠤᠯᠤᠰ, (49.3767858, 113.29484344645006, 0.0)),
+    Location(Цагаан-Овоо, Дорнод, Монгол улс ᠮᠤᠩᠭᠤᠯ ᠤᠯᠤᠰ, (48.456334749999996, 113.16934292655316, 0.0)),
+    Location(Баяндун, Дорнод, Монгол улс ᠮᠤᠩᠭᠤᠯ ᠤᠯᠤᠰ, (49.3767858, 113.29484344645006, 0.0)),
+    Location(Сэргэлэн, Дорнод, Монгол улс ᠮᠤᠩᠭᠤᠯ ᠤᠯᠤᠰ, (48.6156235, 114.10796309205668, 0.0))]
+    
     TODO:
-    - fix zoom_start value based on event?;{'event':zoom_value}
+    - check for duplicate/proximal coordinates
     """
+
     m = folium.Map(
         tiles='CartoDB dark_matter',
     )
-
+    
+    print("Mapping coordinates: ")
+    
     for point in COORDINATES:
         folium.Map(
             location=[point.latitude, point.longitude],
@@ -53,19 +66,20 @@ def geo_mapping(COORDINATES):
 
 def main():
     
+    print("Generating sample.")
     ADDR = [
         "Tagum Philippines",
         "Davao Philippines",
         "Isabela Philippines",
-        "Surigao Philippines"
+        "Surigao Philippines",
+        "Marikina Philippines"
     ]
 
-    LOCATIONS = lookup_coordinates(ADDR)
-    COORDINATES = raw_location(LOCATIONS)
+    LOCATIONS = address_locator(ADDR)
+    COORDINATES = point_extractor(LOCATIONS)
     geo_mapping(COORDINATES)
     time.sleep(5)
     print("Done.")
 
 if __name__ == "__main__":
     main()
-
