@@ -54,21 +54,21 @@ def ip_to_coord(IP_LIST):
     """
     COORDINATES = set()
     print(f"Converting {len(IP_LIST)} to COORDINATES")
-    for ip in IP_LIST:
+    for ip in IP_LIST[:5]:
         try:
             response = DbIpCity.get(ip, api_key='free') # DbIpCity ServiceError?
             c = (response.latitude, response.longitude)
             COORDINATES.add(c)
             print(f"{ip} ---> ({response.latitude},{response.longitude})")
             time.sleep(1)
-        except KeyError as e:
-            print(f"Error: {e}")
+        except KeyError as err:
+            print(err)
             pass
-        except ServiceError as e:
-            print(f"Error: {e}")
+        except ServiceError as err:
+            print(err)
             pass
-        except InvalidRequestError as e:
-            print(f"Error: {e}")
+        except InvalidRequestError as err:
+            print(err)
             pass
     print(f"Processing {len(COORDINATES)} COORDINATES.")
     return COORDINATES
