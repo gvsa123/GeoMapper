@@ -1,4 +1,4 @@
-from geo_gen import generate_coordinates as gc
+from coordinate_generator import generate_coordinates as gc
 from import_coordinates import *
 
 for i in range(5):

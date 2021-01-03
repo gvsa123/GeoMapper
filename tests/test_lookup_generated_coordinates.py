@@ -1,6 +1,6 @@
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
-from geo_gen import generate_coordinates
+from coordinate_generator import generate_coordinates
 from locator import coordinate_locator
 from mapper import geo_mapping
 
