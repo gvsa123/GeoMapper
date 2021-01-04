@@ -3,8 +3,6 @@ import time
 
 def ip_from_csv(CSV_FILE='./Data/failed_logins.csv'):
     """Import COORDINATES from csvfile. Removes duplicates.
-    TODO:
-    - can be depricated when database pipe functional
     """
 
     ip_dataframe = pd.read_csv(
@@ -36,25 +34,24 @@ def df_to_list(ip_dataframe):
     ip_dataframe : pandas dataframe
     """
     IP_LIST = ip_dataframe.values.tolist()
-    print(f"Converted {len(IP_LIST)} ip_addresses to list")
+    print(f"converted {len(IP_LIST)} ip_addresses")
 
     return IP_LIST
 
 def main():
     from ip_to_coordinate_converter import ip_to_coord
-    from locator import point_extractor
+    from locator import point_extractor, coordinate_locator
     from mapper import geo_mapping
     from query_database import failed_logins
-    from reverse_lookup import coordinate_locator
     
     QUERY_RESULT = failed_logins()
     ip_dataframe = ip_from_query(QUERY_RESULT)
     IP_LIST = df_to_list(ip_dataframe)
     print(IP_LIST)
-    # raw_coordinates = ip_to_coord(IP_LIST)
-    # LOCATIONS = [coordinate_locator(c) for c in raw_coordinates]
-    # COORDINATES = point_extractor(LOCATIONS)
-    # geo_mapping(COORDINATES)
+    raw_coordinates = ip_to_coord(IP_LIST)
+    LOCATIONS = [coordinate_locator(c) for c in raw_coordinates]
+    COORDINATES = point_extractor(LOCATIONS)
+    geo_mapping(COORDINATES)
 
 if __name__ == "__main__":
     main()

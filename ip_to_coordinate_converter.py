@@ -8,7 +8,7 @@ def ip_to_coord(IP_LIST):
     - create KeyError counter? Or limit accuracy of COORDINATES?
     - pickle batch conversion
     """
-    COORDINATES = set()
+    COORDINATES = set() # no duplicate coordinate.
     error_counter = 0
     print(f"Converting {len(IP_LIST)} to COORDINATES")
     for ip in IP_LIST[:5]:
@@ -16,24 +16,28 @@ def ip_to_coord(IP_LIST):
             response = DbIpCity.get(ip, api_key='free') # DbIpCity ServiceError?
             c = (response.latitude, response.longitude)
             COORDINATES.add(c)
-            error_counter += 1
             print(f"{ip} ---> ({response.latitude},{response.longitude})")
-            time.sleep(1)
+            # time.sleep(1)
         except KeyError as err:
             print(err)
+            error_counter += 1
             pass
         except ServiceError as err:
             print(err)
+            error_counter += 1
             pass
         except InvalidRequestError as err:
             print(err)
+            error_counter += 1
             pass
-    print(f"Processing {len(COORDINATES)} COORDINATES.")
+    print(f"Processing {len(COORDINATES)} COORDINATES. Duplicates removed.")
+    print(f"{error_counter} errors encountered.")
     return COORDINATES
 
 def main(IP_LIST):
     """Convert IP_LIST to COORDINATES"""
-
+    import query_database 
+    IP_LIST = query_database
     COORDINATES = ip_to_coord(IP_LIST)
 
     return COORDINATES

@@ -41,7 +41,7 @@ def geo_mapping(COORDINATES):
         tiles='CartoDB dark_matter',
     )
     
-    print("Mapping coordinates: ")
+    print("Mapping coordinates... ")
     
     for point in COORDINATES:
         folium.Map(
@@ -50,7 +50,7 @@ def geo_mapping(COORDINATES):
 
         folium.CircleMarker(
             location=[point.latitude, point.longitude],
-            radius=25,
+            radius=10,
             color='#1fff96',
             fill=False,
             fill_color='#7de8b5'
