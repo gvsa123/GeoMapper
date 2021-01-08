@@ -28,7 +28,7 @@ def ip_from_query(QUERY_RESULT):
     ip_dataframe.drop_duplicates(subset='login_attempt_ip', inplace=True)
     ip_dataframe = pd.Series(ip_dataframe['login_attempt_ip'])
 
-    print("Duplicates removed.\n{} unique ip addresses.".format(ip_dataframe.shape[0]))
+    print("Duplicates removed.\n")
 
     return ip_dataframe
 
@@ -41,12 +41,12 @@ def df_to_list(ip_dataframe):
     
     IP_LIST = [ip for ip in ip_dataframe]
     
-    print(f"Converted {len(IP_LIST)} ip_addresses")
+    print(f"{len(IP_LIST)} ip_addresses in IP_LIST\n")
 
     return IP_LIST
 
 def main():
-    from ip_to_coordinate_converter import ip_to_coord
+    from ip_converter import ip_to_coord
     from locator import point_extractor, coordinate_locator
     from mapper import geo_mapping
     from query_database import failed_logins
