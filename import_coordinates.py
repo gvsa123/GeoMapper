@@ -15,17 +15,22 @@ def ip_from_csv(CSV_FILE='./Data/failed_logins.csv'):
     return ip_dataframe
 
 def ip_from_query(QUERY_RESULT):
-    """Takes the result of query_database and converts into df of ip_address
+    """Takes the result of query_database and converts to df of ip_address
+    Result
+    ------
+    IP_LIST : list of ip_addresses
     """
     ip_dataframe = pd.DataFrame(
         QUERY_RESULT,
-        columns=['id', 'user_id', 'user_login', 'failed_login_date', 'login_attempt_ip'],    
+        columns=['id', 'user_id', 'user_login', 'failed_login_date', 'login_attempt_ip']    
     )
 
     ip_dataframe.drop_duplicates(subset='login_attempt_ip', inplace=True)
-    print("duplicates removed. {} unique ip aaddresses.".format(ip_dataframe.shape[0]))
+    ip_dataframe = pd.Series(ip_dataframe['login_attempt_ip'])
 
-    return ip_dataframe['login_attempt_ip']
+    print("Duplicates removed.\n{} unique ip addresses.".format(ip_dataframe.shape[0]))
+
+    return ip_dataframe
 
 def df_to_list(ip_dataframe):
     """Convert ip_dataframe to list of ip addresses
@@ -33,8 +38,10 @@ def df_to_list(ip_dataframe):
     ----------
     ip_dataframe : pandas dataframe
     """
-    IP_LIST = ip_dataframe.values.tolist()
-    print(f"converted {len(IP_LIST)} ip_addresses")
+    
+    IP_LIST = [ip for ip in ip_dataframe]
+    
+    print(f"Converted {len(IP_LIST)} ip_addresses")
 
     return IP_LIST
 
