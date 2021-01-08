@@ -14,10 +14,10 @@ def remaining_queries(URL):
         data = r.json()
         query = data['queriesLeft']
 
-    print(queries)
-    return queries
+    print(query)
+    return query
 
-queries = remaining_queries(URL=URL)
+query = remaining_queries(URL=URL)
 
 def batch_query(IP_LIST, URL):
     """Batch query ip database via http"""
@@ -32,10 +32,10 @@ def batch_query(IP_LIST, URL):
     print(data)
 
 
-def ip_to_coord(IP_LIST, queries=queries):
+def ip_to_coord(IP_LIST, query=query):
     """Convert IP_LIST to COORDINATES - the long and slow way"""
 
-    if len(IP_LIST) < queries:
+    if len(IP_LIST) < query:
         COORDINATES = set() # no duplicate coordinate.
         error_counter = 0
         print(f"Converting {len(IP_LIST)}:")
@@ -79,13 +79,13 @@ def main():
     from import_coordinates import ip_from_query
     from import_coordinates import df_to_list
 
-    # queries = remaining_queries()
+    # query = remaining_queries()
     
     QUERY_RESULT = failed_logins()
     ip_dataframe = ip_from_query(QUERY_RESULT)
     IP_LIST = df_to_list(ip_dataframe)
 
-    # COORDINATES = ip_to_coord(IP_LIST, queries)
+    # COORDINATES = ip_to_coord(IP_LIST, query)
     
     URL = 'http://api.db-ip.com/v2/free'
     # batch_query(IP_LIST=['172.219.34.170'], URL=URL)
