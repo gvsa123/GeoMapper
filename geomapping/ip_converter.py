@@ -54,12 +54,17 @@ def json_parser(DATA):
      Output
      ------
     """
+    ADDR = set()
     for ip in DATA.keys():
         try:
-            print(DATA[ip]['countryName'])
+            address = ("{}, {}, {}".format(DATA[ip]['city'], DATA[ip]['stateProv'], DATA[ip]['countryName']) )
+            ADDR.add(address)
         except KeyError as ke:
             print(ke)
             pass
+    print(ADDR)
+
+    return ADDR
     
 
 def ip_to_coord(IP_LIST, LIMIT=limit):
@@ -115,7 +120,15 @@ def main():
         IP_LIST = df_to_list(ip_dataframe)
         json_data = batch_query(IP_LIST=IP_LIST[:31], URL=URL)
 
-        json_parser(json_data)
+        ADDR = json_parser(json_data)
+
+        from locator import address_locator
+        from mapper import geo_mapping
+
+        address = address_locator(ADDR)
+        geo_mapping(address)
+
+
 
         # COORDINATES = ip_to_coord(IP_LIST, query)
 

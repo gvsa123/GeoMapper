@@ -3,13 +3,13 @@ import time
 import folium
 import os
 
-from locator import address_locator
-from locator import point_extractor
+
+from geomapping.locator import address_locator, point_extractor
 
 def render_map():
     """Render map on browser after creation in geo_mapping()"""
     cwd = os.getcwd()
-    url = 'file://' + cwd + '/Maps/map.html'
+    url = 'file://' + cwd + '/geomapping/maps/map.html'
     ff_path = '/usr/bin/firefox'
     webbrowser.register('firefox', None, webbrowser.BackgroundBrowser(ff_path))
     ff = webbrowser.get(using='firefox')
@@ -55,12 +55,11 @@ def geo_mapping(COORDINATES):
             fill=False,
             fill_color='#7de8b5'
         ).add_to(m)
-        # print(point.latitude, point.longitude)
 
-        # time.sleep(2)
     bounds = m.get_bounds()
     m.fit_bounds(bounds, padding=(20,20))
-    m.save('./Maps/map.html')
+    print(os.getcwd())
+    # m.save('./maps/map.html')
 
     render_map() # Function to render map on browser
 
