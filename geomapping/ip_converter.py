@@ -5,8 +5,6 @@ from ip2geotools.errors import InvalidRequestError
 import pickle
 import requests
 
-URL = 'http://api.db-ip.com/v2/free'
-
 # Check daily quota limit
 def remaining_queries(URL):
     """Check daily quota limit before converting ip addresses"""
@@ -18,9 +16,7 @@ def remaining_queries(URL):
     # print("Daily quota: {}".format(limit))
     return limit
 
-limit = remaining_queries(URL=URL)
-
-def batch_query(IP_LIST, URL, LIMIT=limit):
+def batch_query(IP_LIST, URL, LIMIT=32):
     """Batch query ip database via http"""
 
     if len(IP_LIST) < LIMIT:
@@ -60,14 +56,14 @@ def json_parser(DATA):
             address = ("{}, {}, {}".format(DATA[ip]['city'], DATA[ip]['stateProv'], DATA[ip]['countryName']) )
             ADDR.add(address)
         except KeyError as ke:
-            print(ke)
+            print("Missing: {}".format(ke))
             pass
     print(ADDR)
 
     return ADDR
     
 
-def ip_to_coord(IP_LIST, LIMIT=limit):
+def ip_to_coord(IP_LIST, LIMIT=32):
     """Convert IP_LIST to COORDINATES - the long and slow way
     TODO:
     - deprecate with batch_query
@@ -101,38 +97,8 @@ def ip_to_coord(IP_LIST, LIMIT=limit):
     else:
         raise Exception("Daily quota not enough.")
     
-    with open('./Data/COORDINATES.p', 'wb') as f:
+    with open('./data/COORDINATES.p', 'wb') as f:
         pickle.dump(COORDINATES, f)
         print(f)
     
     return COORDINATES
-
-def main():
-    """Convert IP_LIST to COORDINATESformat"""
-
-    if limit > 32: # Check limit before doing anything!
-        from query_database import failed_logins
-        from import_coordinates import ip_from_query, df_to_list
-        from ip_converter import json_parser
-    
-        QUERY_RESULT = failed_logins()
-        ip_dataframe = ip_from_query(QUERY_RESULT)
-        IP_LIST = df_to_list(ip_dataframe)
-        json_data = batch_query(IP_LIST=IP_LIST[:31], URL=URL)
-
-        ADDR = json_parser(json_data)
-
-        from locator import address_locator
-        from mapper import geo_mapping
-
-        address = address_locator(ADDR)
-        geo_mapping(address)
-
-
-
-        # COORDINATES = ip_to_coord(IP_LIST, query)
-
-        # return COORDINATES
-
-if __name__ == "__main__":
-    main()

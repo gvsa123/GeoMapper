@@ -16,7 +16,7 @@ def render_map():
     ff = webbrowser.get()
     ff.open(url, new=0, autoraise=True)
     print("Loading map...")
-    time.sleep(5)
+    time.sleep(2)
 
 def geo_mapping(COORDINATES):
     """Map COORDINATES and save to html file
@@ -59,7 +59,7 @@ def geo_mapping(COORDINATES):
     bounds = m.get_bounds()
     m.fit_bounds(bounds, padding=(20,20))
     print(os.getcwd())
-    # m.save('./maps/map.html')
+    m.save('./geomapping/maps/map.html')
 
     render_map() # Function to render map on browser
 

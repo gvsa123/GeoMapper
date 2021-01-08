@@ -3,8 +3,8 @@ def main():
 
     from geomapping.ip_converter import remaining_queries
 
-    URL = 'http://api.db-ip.com/v2/free'
-    limit = remaining_queries(URL=URL)
+    url = 'http://api.db-ip.com/v2/free'
+    limit = remaining_queries(URL=url)
 
     if limit > 32: # Check limit before doing anything!
         from geomapping.query_database import failed_logins
@@ -14,7 +14,7 @@ def main():
         QUERY_RESULT = failed_logins()
         ip_dataframe = ip_from_query(QUERY_RESULT)
         IP_LIST = df_to_list(ip_dataframe)
-        json_data = batch_query(IP_LIST=IP_LIST[:31], URL=URL)
+        json_data = batch_query(IP_LIST=IP_LIST[:31], URL=url)
 
         ADDR = json_parser(json_data)
 

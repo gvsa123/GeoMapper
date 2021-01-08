@@ -39,8 +39,7 @@ def df_to_list(ip_dataframe):
     ip_dataframe : pandas dataframe
     """
     
-    IP_LIST = [ip for ip in ip_dataframe]
-    
+    IP_LIST = [ip for ip in ip_dataframe]    
     print(f"{len(IP_LIST)} ip_addresses in IP_LIST\n")
 
     return IP_LIST
@@ -48,17 +47,12 @@ def df_to_list(ip_dataframe):
 def main():
     from ip_converter import ip_to_coord
     from locator import point_extractor, coordinate_locator
-    from mapper import geo_mapping
     from query_database import failed_logins
     
     QUERY_RESULT = failed_logins()
     ip_dataframe = ip_from_query(QUERY_RESULT)
     IP_LIST = df_to_list(ip_dataframe)
     print(IP_LIST)
-    raw_coordinates = ip_to_coord(IP_LIST)
-    LOCATIONS = [coordinate_locator(c) for c in raw_coordinates]
-    COORDINATES = point_extractor(LOCATIONS)
-    geo_mapping(COORDINATES)
 
 if __name__ == "__main__":
     main()
