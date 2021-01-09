@@ -7,6 +7,7 @@ import requests
 
 # Check daily quota limit
 def remaining_queries(URL):
+
     """Check daily quota limit before converting ip addresses"""
 
     with requests.get(URL) as r:
@@ -16,22 +17,79 @@ def remaining_queries(URL):
     # print("Daily quota: {}".format(limit))
     return limit
 
-def batch_query(IP_LIST, URL, LIMIT=32):
-    """Batch query ip database via http"""
+def split_query(IP_LIST):
+    """Limit batch_query length
+    Returns
+    -------
+    temp_ip, over_ip placeholders
+    """
 
-    if len(IP_LIST) < LIMIT:
-        print("Constructing query:")
-        query = URL + '/' + ','.join(IP_LIST)
-        print("QUERY : {}\n".format(query))
-
-        # http batch request
-        with requests.get(query) as r:
-            json_data = r.json()
+    if len(IP_LIST) > 32:
+        temp_ip = IP_LIST[:32]
+        over_ip = IP_LIST[32:]
     
-    elif len(IP_LIST) >= query:
-        print("Query will exceed daily quota. Be nice.")
+    return temp_ip, over_ip
+
+def construct_query(IP_LIST, URL):
+    """Create query string"""
+
+    print("Constructing query:")
+    query = URL + '/' + ','.join(IP_LIST)
+    print(query)
+
+    return query
+
+def batch_request(QUERY):
+    """Batch request"""
+    # http batch request
+    with requests.get(QUERY) as r:
+        json_data = r.json()
     
     return json_data
+
+def batch_query(IP_LIST, URL, LIMIT=32):
+    """Batch query ip database via http"""
+    
+    print(f"{len(IP_LIST)} in IP_LIST\n")
+    
+    query = construct_query(IP_LIST, URL)            
+    json_data = batch_request(query)
+
+    return json_data
+    
+    # try:
+    #     if len(IP_LIST) <= LIMIT:
+    #         query = construct_query(IP_LIST, URL)
+            
+    #         json_data = batch_request(query)
+        
+    #     elif len(IP_LIST) > LIMIT and len(IP_LIST) < 64:
+    #         """How to handle 3+ list divisions?"""
+            
+    #         json_data = batch_request(query)
+
+    #         # USE DATA = [] AS PLACEHOLDER
+            
+    #         temp_ip, over_ip = split_query(IP_LIST)
+    #         MASTER_IP_LIST = [temp_ip, over_ip]
+
+    #         for IPL in MASTER_IP_LIST:
+    #             query = construct_query(IPL, URL)
+
+    #         json_data = batch_request(query)
+
+
+    #         # http batch request
+    #         with requests.get(query) as r:
+    #             json_data = r.json()
+    #     else:
+    #         json_data = batch_request(query)
+    #         print("Query will exceed daily quota. Be nice.")
+
+    
+    # finally:
+        
+    #     return json_data
 
 def json_parser(DATA):
     
@@ -53,7 +111,7 @@ def json_parser(DATA):
     ADDR = set()
     for ip in DATA.keys():
         try:
-            address = ("{}, {}, {}".format(DATA[ip]['city'], DATA[ip]['stateProv'], DATA[ip]['countryName']) )
+            address = "{}, {}, {}".format(DATA[ip]['city'], DATA[ip]['stateProv'], DATA[ip]['countryName'])
             ADDR.add(address)
         except KeyError as ke:
             print("Missing: {}".format(ke))
@@ -62,7 +120,6 @@ def json_parser(DATA):
 
     return ADDR
     
-
 def ip_to_coord(IP_LIST, LIMIT=32):
     """Convert IP_LIST to COORDINATES - the long and slow way
     TODO:

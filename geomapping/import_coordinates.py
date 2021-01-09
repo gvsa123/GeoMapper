@@ -40,7 +40,6 @@ def df_to_list(ip_dataframe):
     """
     
     IP_LIST = [ip for ip in ip_dataframe]    
-    print(f"{len(IP_LIST)} ip_addresses in IP_LIST\n")
 
     return IP_LIST
 

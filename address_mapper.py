@@ -14,7 +14,7 @@ def main():
         QUERY_RESULT = failed_logins()
         ip_dataframe = ip_from_query(QUERY_RESULT)
         IP_LIST = df_to_list(ip_dataframe)
-        json_data = batch_query(IP_LIST=IP_LIST[:31], URL=url)
+        json_data = batch_query(IP_LIST=IP_LIST[:32], URL=url) # Limit to 32
 
         ADDR = json_parser(json_data)
 
