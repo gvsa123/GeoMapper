@@ -1,12 +1,23 @@
+import configparser
+import os
+import paramiko
 import pymysql.cursors
 from sshtunnel import SSHTunnelForwarder
 import time
 
-"""
-TODO:
-- assign column header
-- create CONFIG
-"""
+"""CONFIGURATION"""
+# Convert to paramiko key
+pkey = os.environ.get('HOME') + '/.ssh/id_rsa'
+key = paramiko.RSAKey.from_private_key_file(filename=pkey, password='B0c30131b6^')
+
+# ConfigParser
+config = configparser.ConfigParser()
+config.read('config.ini')
+ssh_username = config['SSHTUNNEL']['ssh_username']
+sql_username = config['MYSQL']['sql_username']
+sql_password = config['MYSQL']['sql_password']
+db = config['MYSQL']['db']
+
 def failed_logins():
     """Query wordpress db for failed_logins
     Returns
@@ -19,17 +30,17 @@ def failed_logins():
 
         with SSHTunnelForwarder(
                 ('192.168.1.103', 2222),
-                ssh_username='pi',
-                ssh_password='B0c30131b6^',
+                ssh_username=ssh_username,
+                ssh_pkey=key,
                 remote_bind_address=('localhost', 3306),
                 local_bind_address=('127.0.0.1', 3306),
             ) as tunnel:
             
             # Connect to the database
             connection = pymysql.connect(
-                user='gvsa123',
-                password='B0c30131b6^',
-                db='wordpress',
+                user= sql_username,
+                password= sql_password,
+                db= db,
                 # cursorclass=pymysql.cursors.DictCursor
             )
 
