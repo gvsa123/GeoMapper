@@ -12,7 +12,7 @@ key = paramiko.RSAKey.from_private_key_file(filename=pkey, password='B0c30131b6^
 
 # ConfigParser
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read('./geomapping/config.ini')
 ssh_username = config['SSHTUNNEL']['ssh_username']
 sql_username = config['MYSQL']['sql_username']
 sql_password = config['MYSQL']['sql_password']
@@ -52,20 +52,18 @@ def failed_logins():
                 # sql = ("SELECT * FROM gvsa123aiowps_failed_logins")
                 cursor.execute(sql)
                 result = cursor.fetchall()
-            
-            time.sleep(.5)
+                
     finally:
         if connection:
             connection.close()
             print("Connection closed.")
-            time.sleep(.5)
+
         if tunnel:
             tunnel.stop(force=True)
             print("Tunnel closed.")
-            time.sleep(.5)
-        print("Database query success.\n")
-        time.sleep(.5)
 
+        print("Database query success.\n")
+        
         return result
 
 def main():
