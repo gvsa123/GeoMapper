@@ -41,7 +41,7 @@ def geo_mapping(COORDINATES):
         tiles='CartoDB dark_matter',
     )
     
-    print("Mapping coordinates... ")
+    print("Mapping coordinates ")
     
     for point in COORDINATES:
         folium.Map(
@@ -58,7 +58,6 @@ def geo_mapping(COORDINATES):
 
     bounds = m.get_bounds()
     m.fit_bounds(bounds, padding=(20,20))
-    print(os.getcwd())
     m.save('./geomapping/maps/map.html')
 
     render_map() # Function to render map on browser
