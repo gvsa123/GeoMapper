@@ -22,8 +22,11 @@ def split_query(IP_LIST):
     Returns
     -------
     temp_ip, over_ip placeholders
-    """
 
+    TODO:
+    - add functionality to return multiple batch queries of len=32 each
+    """
+    
     if len(IP_LIST) > 32:
         temp_ip = IP_LIST[:32]
         over_ip = IP_LIST[32:]
@@ -34,10 +37,17 @@ def construct_query(IP_LIST, URL):
     """Create query string"""
 
     print("Constructing query:")
-    query = URL + '/' + ','.join(IP_LIST)
-    print(query)
-
-    return query
+    try:
+        if len(IP_LIST) == 0:
+            print(IP_LIST)
+        elif len(IP_LIST) == 1:
+            query = URL + '/' + IP_LIST[0]
+        elif len(IP_LIST) > 2:
+            query = URL + '/' + ','.join(IP_LIST)
+    finally:
+        print(query)
+        
+        return query
 
 def batch_request(QUERY):
     """Batch request"""
@@ -107,21 +117,29 @@ def json_parser(DATA):
      
      Output
      ------
+
+
     """
     ADDR = set()
-    for ip in DATA.keys():
-        try:
-            address = "{}, {}, {}".format(DATA[ip]['city'], DATA[ip]['stateProv'], DATA[ip]['countryName'])
-            ADDR.add(address)
-        except KeyError as ke:
-            print("Missing: {}".format(ke))
-            pass
-    print(ADDR)
+
+    try:
+        for ip in DATA.keys():
+            try:
+                address = "{}, {}, {}".format(DATA[ip]['city'], DATA[ip]['stateProv'], DATA[ip]['countryName'])
+                ADDR.add(address)
+            except KeyError as ke:
+                print("Missing: {}".format(ke))
+                pass
+    except TypeError as te:
+        assert len(ADDR) == 0, 'ADDR not empty'
+        address = "{}, {}, {}".format(DATA['city'], DATA['stateProv'], DATA['countryName'])
+        ADDR.add(address)
 
     return ADDR
     
 def ip_to_coord(IP_LIST, LIMIT=32):
     """Convert IP_LIST to COORDINATES - the long and slow way
+
     TODO:
     - deprecate with batch_query
     """
