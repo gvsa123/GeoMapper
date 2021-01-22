@@ -32,7 +32,7 @@ def failed_logins():
     """
     try:
         # Create sshtunnel
-        print("Initiate query_database")
+        print("initiate query_database")
         with SSHTunnelForwarder(
                 ('192.168.1.103', 2222),
                 ssh_username=SSH_USERNAME,
@@ -42,7 +42,7 @@ def failed_logins():
             ) as tunnel:
 
             if tunnel.is_alive == True:
-                print("connecting to database.")
+                print("connecting to database")
                 time.sleep(1)
 
                 # Connect to the database
@@ -52,22 +52,22 @@ def failed_logins():
                     db= DB,
                 )
                 
-                print("sql connection established.")
+                print("sql connection established")
 
             with connection.cursor() as cursor:
                 sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL 3 DAY) AND NOW()')
                 cursor.execute(sql_query)
                 result = cursor.fetchall()
                 assert len(result) > 0, "result empty"
-                print("database query success.")
+                print("database query success")
 
         if connection: # catch UnboundLocalError
             connection.close()
-            print("Connection closed.")
+            print("connection closed")
 
         if tunnel:
             tunnel.stop(force=True)
-            print("Tunnel closed.")
+            print("tunnel closed")
 
     except paramiko.PasswordRequiredException:
         print('arg!')

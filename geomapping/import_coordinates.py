@@ -28,7 +28,7 @@ def ip_from_query(QUERY_RESULT):
     ip_dataframe.drop_duplicates(subset='login_attempt_ip', inplace=True)
     ip_dataframe = pd.Series(ip_dataframe['login_attempt_ip'])
 
-    print("Duplicates removed.\n")
+    print("duplicates removed")
 
     return ip_dataframe
 

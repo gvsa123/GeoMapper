@@ -36,7 +36,7 @@ def split_query(IP_LIST):
 def construct_query(IP_LIST, URL):
     """Create query string"""
 
-    print("Constructing query:")
+    print("query:")
     try:
         if len(IP_LIST) == 0:
             print(IP_LIST)
@@ -60,7 +60,7 @@ def batch_request(QUERY):
 def batch_query(IP_LIST, URL, LIMIT=32):
     """Batch query ip database via http"""
     
-    print(f"{len(IP_LIST)} in IP_LIST\n")
+    print(f"IP_LIST {len(IP_LIST)}")
     
     query = construct_query(IP_LIST, URL)            
     json_data = batch_request(query)

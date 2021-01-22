@@ -41,7 +41,7 @@ def geo_mapping(COORDINATES):
         tiles='CartoDB dark_matter',
     )
     
-    print("Mapping coordinates ")
+    print("mapping coordinates ")
     
     for point in COORDINATES:
         folium.Map(

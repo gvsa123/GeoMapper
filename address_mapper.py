@@ -3,10 +3,10 @@ def main():
 
     from geomapping.ip_converter import remaining_queries
     
-    print("Running daily quota check.")
+    print("running daily quota check")
     url = 'http://api.db-ip.com/v2/free'
     limit = remaining_queries(URL=url)
-    print("Daily quota left : {}".format(limit))
+    print(f"daily quota {limit}")
 
     from geomapping.query_database import failed_logins
     from geomapping.import_coordinates import ip_from_query, df_to_list
