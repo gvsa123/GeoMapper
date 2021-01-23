@@ -15,7 +15,7 @@ def render_map():
     ff = webbrowser.get(using='firefox')
     ff = webbrowser.get()
     ff.open(url, new=0, autoraise=True)
-    print("Loading map...")
+    print("loading map")
     time.sleep(2)
 
 def geo_mapping(COORDINATES):

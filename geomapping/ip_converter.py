@@ -38,11 +38,9 @@ def construct_query(IP_LIST, URL):
 
     print("query:")
     try:
-        if len(IP_LIST) == 0:
-            print(IP_LIST)
-        elif len(IP_LIST) == 1:
+        if len(IP_LIST) == 1:
             query = URL + '/' + IP_LIST[0]
-        elif len(IP_LIST) > 2:
+        elif len(IP_LIST) > 1:
             query = URL + '/' + ','.join(IP_LIST)
     finally:
         print(query)
@@ -66,40 +64,6 @@ def batch_query(IP_LIST, URL, LIMIT=32):
     json_data = batch_request(query)
 
     return json_data
-    
-    # try:
-    #     if len(IP_LIST) <= LIMIT:
-    #         query = construct_query(IP_LIST, URL)
-            
-    #         json_data = batch_request(query)
-        
-    #     elif len(IP_LIST) > LIMIT and len(IP_LIST) < 64:
-    #         """How to handle 3+ list divisions?"""
-            
-    #         json_data = batch_request(query)
-
-    #         # USE DATA = [] AS PLACEHOLDER
-            
-    #         temp_ip, over_ip = split_query(IP_LIST)
-    #         MASTER_IP_LIST = [temp_ip, over_ip]
-
-    #         for IPL in MASTER_IP_LIST:
-    #             query = construct_query(IPL, URL)
-
-    #         json_data = batch_request(query)
-
-
-    #         # http batch request
-    #         with requests.get(query) as r:
-    #             json_data = r.json()
-    #     else:
-    #         json_data = batch_request(query)
-    #         print("Query will exceed daily quota. Be nice.")
-
-    
-    # finally:
-        
-    #     return json_data
 
 def json_parser(DATA):
     
