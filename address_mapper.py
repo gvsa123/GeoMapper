@@ -17,9 +17,7 @@ def main():
     if len(QUERY_RESULT) != 0:
         ip_dataframe = ip_from_query(QUERY_RESULT)
         IP_LIST = df_to_list(ip_dataframe)
-        
         assert limit > len(IP_LIST), 'Daily quota limit not enough.'
-        
         json_data = batch_query(IP_LIST=IP_LIST[:32], URL=url) # Limit to 32 while split_query() not complete
 
         ADDR = json_parser(json_data)

@@ -19,6 +19,7 @@ def remaining_queries(URL):
 
 def split_query(IP_LIST):
     """Limit batch_query length
+
     Returns
     -------
     temp_ip, over_ip placeholders
@@ -57,13 +58,14 @@ def batch_request(QUERY):
 
 def batch_query(IP_LIST, URL, LIMIT=32):
     """Batch query ip database via http"""
-    
-    print(f"IP_LIST {len(IP_LIST)}")
-    
-    query = construct_query(IP_LIST, URL)            
-    json_data = batch_request(query)
 
-    return json_data
+    if len(IP_LIST) < LIMIT:    
+        print(f"IP_LIST: {len(IP_LIST)}")        
+        query = construct_query(IP_LIST, URL)            
+        json_data = batch_request(query)
+        return json_data
+    else:
+        print('Unable to handle too many attempts.')
 
 def json_parser(DATA):
     
