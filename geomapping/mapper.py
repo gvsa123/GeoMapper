@@ -44,9 +44,10 @@ def geo_mapping(COORDINATES):
     print("mapping coordinates ")
     
     for point in COORDINATES:
-        folium.Map(
+        folium.Marker(
             location=[point.latitude, point.longitude],
-        ).add_to(m)
+            icon=None
+        )#.add_to(m)
 
         folium.CircleMarker(
             location=[point.latitude, point.longitude],
