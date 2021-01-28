@@ -22,6 +22,8 @@ def main():
 
         ADDR = json_parser(json_data)
 
+        print(ADDR)
+
         from geomapping.locator import address_locator
         from geomapping.mapper import geo_mapping
 
@@ -29,6 +31,8 @@ def main():
         geo_mapping(address)
     else:
         print(f"{len(QUERY_RESULT)} failed login attempts. Exiting")
+    
+    return ADDR
 
 if __name__ == "__main__":
     main()

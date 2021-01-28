@@ -33,7 +33,12 @@
               <iframe src="/get_map" height="400" width="100%">Folium Map</iframe>
           </div>
       </div>
-      
+      <div>
+        <!-- output ADDR somehow -->
+        {% for addr in res %}
+            <p>{{ addr }}</p>
+        {% endfor %}
+      </div>
       <script src="" async defer></script>
     </body>
 </html>
