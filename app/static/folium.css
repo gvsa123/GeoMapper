@@ -1,0 +1,36 @@
+body {
+    background-color: #101010;
+    color: #DCDCDC;
+}
+
+table {
+    color: #DCDCDC;
+    width: 100%;
+    margin: 20px;
+    margin-right: 20px;
+    padding: 10px;
+    border-style: double;
+    border-spacing: 5px;
+    
+}
+
+th, td {
+    text-align: left;
+    border: 1px solid;
+}
+.container {
+    border-color: rgb(185, 146, 60);
+    border-style: solid;
+    border-width: medium;
+}
+h1 {
+    text-align: center;
+}
+.folium-map {
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    float: right;
+    column-count: 2;
+    column-gap: 5rem;
+}
