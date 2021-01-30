@@ -14,24 +14,14 @@
     </head>
     <body>
       <div class="container">
+        <h1>Failed login attempts</h1>
           <div class="folium-map">
-              <h1>Failed login attempts</h1>
               <table>
                   <tr>
-                    <th>Date</th>
-                    <th>IP Address</th>
-                  </tr>
-                  <tr>
-                    <td>Eve</td>
-                    <td>Jackson-Tumalon</td>
+                    <th>Locations</th>
                   </tr>
                   <tr>
                     <td> 
-                      {% for num in data %}
-                          {{ num }}  
-                      {% endfor %}
-                    </td>
-                    <td>
                       {% for num in data %}
                           {{ num }}  
                       {% endfor %}
