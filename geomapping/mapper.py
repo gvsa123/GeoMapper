@@ -18,12 +18,14 @@ def render_map():
     print("loading map")
     time.sleep(2)
 
-def geo_mapping(COORDINATES):
+def geo_mapping(COORDINATES, no_browser=0):
     """Map COORDINATES and save to html file
     Parameters
     ----------
     COORDINATES : [(LATITUDE, LONGITUDE)]
     List of <class 'geopy.location.Location'>
+
+    no_browser : open map in browser
     
     Example
     -------
@@ -61,7 +63,8 @@ def geo_mapping(COORDINATES):
     m.fit_bounds(bounds, padding=(20,20))
     m.save('./app/templates/map.html')
 
-    render_map() # Function to render map on browser
+    if no_browser == 1:
+        render_map() # render map in browser
 
 def main():
     
@@ -76,7 +79,7 @@ def main():
 
     LOCATIONS = address_locator(ADDR)
     COORDINATES = point_extractor(LOCATIONS)
-    geo_mapping(COORDINATES)
+    geo_mapping(COORDINATES, no_browser=0)
     time.sleep(5)
     print("Done.")
 
