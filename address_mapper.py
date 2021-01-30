@@ -1,4 +1,4 @@
-def main():
+def run_mapper():
     """Convert IP_LIST to COORDINATESformat"""
 
     from geomapping.ip_converter import remaining_queries
@@ -18,7 +18,7 @@ def main():
         ip_dataframe = ip_from_query(QUERY_RESULT)
         IP_LIST = df_to_list(ip_dataframe)
         assert limit > len(IP_LIST), 'Daily quota limit not enough.'
-        json_data = batch_query(IP_LIST=IP_LIST[:32], URL=url) # Limit to 32 while split_query() not complete
+        json_data = batch_query(IP_LIST=IP_LIST[:31], URL=url) # Limit to 32 while split_query() not complete
 
         ADDR = json_parser(json_data)
 
@@ -29,10 +29,10 @@ def main():
 
         address = address_locator(ADDR)
         geo_mapping(address)
+
+        return ADDR
     else:
         print(f"{len(QUERY_RESULT)} failed login attempts. Exiting")
-    
-    return ADDR
 
 if __name__ == "__main__":
-    main()
+    run_mapper()

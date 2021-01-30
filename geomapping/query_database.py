@@ -55,7 +55,7 @@ def failed_logins():
                 print("sql connection established")
 
             with connection.cursor() as cursor:
-                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW()')
+                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL 15 DAY) AND NOW()')
                 cursor.execute(sql_query)
                 result = cursor.fetchall()
                 assert len(result) > 0, "result empty"

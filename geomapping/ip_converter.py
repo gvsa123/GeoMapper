@@ -65,7 +65,7 @@ def batch_query(IP_LIST, URL, LIMIT=32):
         json_data = batch_request(query)
         return json_data
     else:
-        print('Unable to handle too many attempts.')
+        print(f"Unable to handle {len(IP_LIST)}.")
 
 def json_parser(DATA):
     

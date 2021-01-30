@@ -22,22 +22,24 @@
                     <th>IP Address</th>
                   </tr>
                   <tr>
-                    <td>Jill</td>
-                    <td>Smith</td>
-                  </tr>
-                  <tr>
                     <td>Eve</td>
                     <td>Jackson-Tumalon</td>
+                  </tr>
+                  <tr>
+                    <td> 
+                      {% for num in data %}
+                          {{ num }}  
+                      {% endfor %}
+                    </td>
+                    <td>
+                      {% for num in data %}
+                          {{ num }}  
+                      {% endfor %}
+                    </td>
                   </tr>
                 </table>
               <iframe src="/get_map" height="400" width="100%">Folium Map</iframe>
           </div>
-      </div>
-      <div>
-        <!-- output ADDR somehow -->
-        {% for addr in res %}
-            <p>{{ addr }}</p>
-        {% endfor %}
       </div>
       <script src="" async defer></script>
     </body>
