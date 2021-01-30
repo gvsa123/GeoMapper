@@ -20,13 +20,11 @@
                   <tr>
                     <th>Locations</th>
                   </tr>
+                  {% for num in data %}
                   <tr>
-                    <td> 
-                      {% for num in data %}
-                          {{ num }}  
-                      {% endfor %}
-                    </td>
+                    <td>{{ num }}</td>
                   </tr>
+                  {% endfor %}
                 </table>
               <iframe src="/get_map" height="400" width="100%">Folium Map</iframe>
           </div>
