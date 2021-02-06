@@ -1,15 +1,18 @@
 from address_mapper import run_mapper
 from app import app
 from flask import render_template
-from geomapping import query_database
-from random import randint
+import pandas as pd
 
 @app.route("/")
 def index():
-    sample = run_mapper()
-    # sample = ADDR #[randint(0,1) for x in range(10)]
-    # res = query_database # output addresses
-    return render_template("index.html", data=sample)
+    ip_dataframe = run_mapper()
+    date = ip_dataframe['failed_login_date']
+    id = ip_dataframe['login_attempt_ip']
+    return render_template("index.html", DATE=date, ID=id)
+# def get_df():
+#     # ADDR, ip_dataframe = run_mapper()
+#     hello = "hello world"
+#     return render_template("index.html", addr=hello)
 
 @app.route("/get_map")
 def get_map():

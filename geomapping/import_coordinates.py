@@ -25,12 +25,9 @@ def ip_from_query(QUERY_RESULT):
         columns=['id', 'user_id', 'user_login', 'failed_login_date', 'login_attempt_ip']    
     )
 
-    print(ip_dataframe)
-
     ip_dataframe.drop_duplicates(subset=['login_attempt_ip'], inplace=True)
-    print(ip_dataframe)
-    # ip_dataframe = ip_dataframe[ip_dataframe['login_attempt_ip'], ip_dataframe['failed_login_date']]
-    ip_dataframe = pd.Series(ip_dataframe['login_attempt_ip'])
+    ip_dataframe = ip_dataframe[['failed_login_date', 'login_attempt_ip']]
+    ip_dataframe['login_attempt_ip'] = ip_dataframe['login_attempt_ip'].astype('string', copy=False)
 
     print("duplicates removed")
 
@@ -43,9 +40,21 @@ def df_to_list(ip_dataframe):
     ip_dataframe : pandas dataframe
     """
     
-    IP_LIST = [ip for ip in ip_dataframe]    
-
+    IP_LIST = [ip for ip in ip_dataframe['login_attempt_ip']]
+    
     return IP_LIST
+
+def df_to_addr(ip_dataframe, json_data):
+    """Function to map json_data keys to ip_dataframe"""
+    for ip in ip_dataframe['login_attempt_ip']:
+        try:
+            address = "{}, {}, {}".format(json_data[ip]['city'], json_data[ip]['stateProv'], json_data[ip]['countryName'])
+            ip_dataframe['address'] = ip_dataframe['login_attempt_ip'].map(json_data)
+        except KeyError as ke:
+            print("Missing: {}".format(ke))
+            pass
+
+    return ip_dataframe
 
 def main():
     from ip_converter import ip_to_coord
