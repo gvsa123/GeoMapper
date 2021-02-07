@@ -49,7 +49,7 @@ def df_to_addr(ip_dataframe, json_data):
     for ip in ip_dataframe['login_attempt_ip']:
         try:
             address = "{}, {}, {}".format(json_data[ip]['city'], json_data[ip]['stateProv'], json_data[ip]['countryName'])
-            ip_dataframe['address'] = ip_dataframe['login_attempt_ip'].map(json_data)
+            ip_dataframe['located_address'] = ip_dataframe['login_attempt_ip'].map(json_data)
         except KeyError as ke:
             print("Missing: {}".format(ke))
             pass

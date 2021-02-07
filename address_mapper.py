@@ -21,24 +21,9 @@ def run_mapper():
         assert limit > len(IP_LIST), 'Daily quota limit not enough.'
         
         json_data = batch_query(IP_LIST=IP_LIST[:31], URL=url) # Limit to 32 while split_query() not complete
-       
-       
-       
-        ADDR = json_parser(json_data) # Parsed addresses for locator; no longer needed after json_data mapping?
-
+        ADDR = json_parser(json_data) # Parsed addresses for locator
         ip_dataframe = df_to_addr(ip_dataframe, json_data)
         
-        print(ip_dataframe)
-        # print(ip_dataframe.shape)
-        # print(ip_dataframe.columns)
-        # Try converting ip_dataframe['login_attempt_ip] to stringDtype
-        print(ADDR)
-
-
-
-
-
-
         from geomapping.locator import address_locator
         from geomapping.mapper import geo_mapping
 

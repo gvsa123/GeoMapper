@@ -6,13 +6,11 @@ import pandas as pd
 @app.route("/")
 def index():
     ip_dataframe = run_mapper()
-    date = ip_dataframe['failed_login_date']
-    id = ip_dataframe['login_attempt_ip']
-    return render_template("index.html", DATE=date, ID=id)
-# def get_df():
-#     # ADDR, ip_dataframe = run_mapper()
-#     hello = "hello world"
-#     return render_template("index.html", addr=hello)
+    df_date = [i for i in ip_dataframe['failed_login_date']]
+    df_ip = [i for i in ip_dataframe['login_attempt_ip']]
+    df_addr = [i['countryName'] for i in ip_dataframe['located_address']]
+    x = len(df_date)
+    return render_template("index.html", DF_DATE=df_date, DF_IP=df_ip, DF_ADDR=df_addr, x=x)
 
 @app.route("/get_map")
 def get_map():

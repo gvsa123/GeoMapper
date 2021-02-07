@@ -10,49 +10,33 @@
         <title>Wordpress Failed Login Attempts</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='folium.css') }}"> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='folium.css') }}">
     </head>
     <body>
       <div class="container">
         <h1>Failed logins</h1>
-        <div class="container">
-          <table>
-          <tr>
-            <td>
-              {{ID}}
-            </td>
-          </tr>
-          <tr>
-            <td>
-              {{DATE}}
-            </td>
-          </tr>
-        </table>
-          <!-- <table>
-            <tr>
-              <th>TEST 1</th>
-              <th>TEST 2</th>
-            </tr>
-            {% for a in addr %}
-            <tr>
-              <td>{{ a }}</td>
-            </tr>
-            {% endfor %}
-          </table>           -->
-        </div>
           <div class="folium-map">
               <table>
-                  <!-- <tr>
-                    <th>Locations</th>
-                    <th>Date</th>
-                  </tr> -->
-                  {% for a in addr %}
+                <tr>
+                  <th>Date</th>
+                  <th>IP Address</th>
+                  <th>Origin</th>
+                </tr>
+                {% for i in range(x) %}
                   <tr>
-                    <td>{{ a }}</td>
+                    <td>
+                      {{ DF_DATE[i] }}
+                    </td>
+                    <td>
+                      {{ DF_IP[i] }}
+                    </td>
+                    <td>
+                      {{ DF_ADDR[i] }}
+                    </td>
                   </tr>
-                  {% endfor %}
-                </table>
-              <iframe src="/get_map" height="400" width="100%">Folium Map</iframe>
+                {% endfor %}
+              </table>
+              <iframe src="/get_map" height="400px" width="100%">Folium Map</iframe>
           </div>
       </div>
       <script src="" async defer></script>
