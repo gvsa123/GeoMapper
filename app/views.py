@@ -8,8 +8,16 @@ def index():
     ip_dataframe = run_mapper()
     df_date = [i for i in ip_dataframe['failed_login_date']]
     df_ip = [i for i in ip_dataframe['login_attempt_ip']]
-    df_addr = [i['countryName'] for i in ip_dataframe['located_address']]
-    x = len(df_date)
+    x = len(df_ip)
+    df_addr = []
+    for i in ip_dataframe['located_address']:
+        try:
+            df_addr.append(i['countryName'])
+            # df_addr = [i['countryName'] for i in ip_dataframe['located_address']]
+        except TypeError as te:
+            print(f"TypeError: {te}. Appending <null>.")
+            df_addr.append("<null>")
+            pass
     return render_template("index.html", DF_DATE=df_date, DF_IP=df_ip, DF_ADDR=df_addr, x=x)
 
 @app.route("/get_map")
