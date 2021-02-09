@@ -4,14 +4,15 @@ The project is an exercise in locating and mapping failed login attempts on serv
 
 You need to supply it with a config.ini with the following:
 
-> # query_database config
-> 
-> [SSHTUNNEL]
-> ssh_username="SSH_USERNAME"
-> ssh_password="SSH_PASSWORD"
-> ssh_private_key_password="SSH_PRIVATE_KEY_PASSWORD"
-> 
-> [MYSQL]
-> sql_username="SQL_USERNAME"
-> sql_password="SQL_PASSWORD"
-> db="DB"
+#######################
+# query_database config
+
+[SSHTUNNEL]
+ssh_username="SSH_USERNAME"
+ssh_password="SSH_PASSWORD"
+ssh_private_key_password="SSH_PRIVATE_KEY_PASSWORD"
+
+[MYSQL]
+sql_username="SQL_USERNAME"
+sql_password="SQL_PASSWORD"
+db="DB"
