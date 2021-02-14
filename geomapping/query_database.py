@@ -53,9 +53,10 @@ def failed_logins():
                 )
                 
                 print("sql connection established")
+                x = input("enter how many days to query: ")
 
             with connection.cursor() as cursor:
-                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL 15 DAY) AND NOW()')
+                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL %s DAY) AND NOW()' % (x))
                 cursor.execute(sql_query)
                 result = cursor.fetchall()
                 assert len(result) > 0, "result empty"
@@ -78,7 +79,8 @@ def failed_logins():
 
 def main():
     print("Running failed_logins...")
-    failed_logins()
+    result = failed_logins()
+    print(f"number of failed logins: {len(result)}")
     
 if __name__ == "__main__":
     path = './config.ini'
