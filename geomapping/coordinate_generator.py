@@ -27,3 +27,21 @@ def generate_coordinates(LAT_MIN, LAT_MAX, LON_MIN, LON_MAX, PRECISION=4):
     lon_x = round(random.uniform(LON_MIN, LON_MAX), PRECISION)
 
     return lat_x, lon_x
+
+# lat, lon = generate_coordinates(
+#         LAT_MIN = 50.9113,
+#         LAT_MAX = 50.9002,
+#         LON_MIN = -114.1263,
+#         LON_MAX = -114.0992
+#      )
+
+# print(lat, lon)
+
+if __name__ == "__main__":
+     lat, lon = generate_coordinates(
+        LAT_MIN = 50.9113,
+        LAT_MAX = 50.8002,
+        LON_MIN = -114.1263,
+        LON_MAX = -114.0992
+     )
+     print("LAT: {} LON: {}".format(lat, lon))
