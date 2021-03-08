@@ -44,20 +44,25 @@ def geo_mapping(COORDINATES, no_browser=0):
     )
     
     print("mapping coordinates ")
-    
-    for point in COORDINATES:
-        folium.Marker(
-            location=[point.latitude, point.longitude],
-            icon=None
-        )#.add_to(m)
+    try:
+        for point in COORDINATES:
+            print(
+                point
+            )
+            folium.Marker(
+                location=[point.latitude, point.longitude],
+                icon=None
+            )#.add_to(m)
 
-        folium.CircleMarker(
-            location=[point.latitude, point.longitude],
-            radius=10,
-            color='#1fff96',
-            fill=False,
-            fill_color='#7de8b5'
-        ).add_to(m)
+            folium.CircleMarker(
+                location=[point.latitude, point.longitude],
+                radius=10,
+                color='#1fff96',
+                fill=False,
+                fill_color='#7de8b5'
+            ).add_to(m)
+    except AttributeError as e:
+        pass
 
     bounds = m.get_bounds()
     m.fit_bounds(bounds, padding=(20,20))

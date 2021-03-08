@@ -28,6 +28,7 @@ def run_mapper():
         from geomapping.mapper import geo_mapping
 
         address = address_locator(ADDR)
+        # print(address)
         geo_mapping(address)
 
         return ip_dataframe
