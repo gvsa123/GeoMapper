@@ -16,13 +16,27 @@
       <div class="container">
         <h1>Failed logins</h1>
           <div class="folium-map">
-            <form action="/run_app" method="POST">
-              <label for="qd">Days to query</label>
-              <input type="text" id="qd" name="qd">
-              <button type='submit'>Submit</button>
-              <!-- pipe qd to x in query_database.py-->
-
-            </form>            
+              <table>
+                <tr>
+                  <th>Date</th>
+                  <th>IP Address</th>
+                  <th>Origin</th>
+                </tr>
+                {% for i in range(x) %}
+                  <tr>
+                    <td>
+                      {{ DF_DATE[i] }}
+                    </td>
+                    <td>
+                      {{ DF_IP[i] }}
+                    </td>
+                    <td>
+                      {{ DF_ADDR[i] }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </table>
+              <iframe src="/get_map" height="400px" width="100%">Folium Map</iframe>
           </div>
       </div>
       <script src="" async defer></script>

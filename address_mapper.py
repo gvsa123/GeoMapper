@@ -1,4 +1,4 @@
-def run_mapper():
+def run_mapper(qd):
     """Convert IP_LIST to COORDINATESformat"""
 
     from geomapping.ip_converter import remaining_queries
@@ -8,12 +8,14 @@ def run_mapper():
     limit = remaining_queries(URL=url)
     print(f"daily quota {limit}")
 
+    print(f"print QD: {qd} of {type(qd)} from run_mapper()")
+
     from geomapping.query_database import failed_logins
     from geomapping.import_coordinates import ip_from_query, df_to_list, df_to_addr
     from geomapping.ip_converter import json_parser, batch_query
 
     # Extract ip addresses from database
-    QUERY_RESULT = failed_logins()
+    QUERY_RESULT = failed_logins(qd=qd)
     if len(QUERY_RESULT) != 0:
         ip_dataframe = ip_from_query(QUERY_RESULT)
         IP_LIST = df_to_list(ip_dataframe)
