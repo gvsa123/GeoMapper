@@ -58,7 +58,7 @@ def failed_logins(qd):
                     qd = input("enter how many days to query: ")
 
             with connection.cursor() as cursor:
-                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL %s DAY) AND NOW()' % (qd))
+                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL %s HOUR) AND NOW()' % (qd)) # DAYS
                 cursor.execute(sql_query)
                 result = cursor.fetchall()
                 assert len(result) > 0, "result empty"
