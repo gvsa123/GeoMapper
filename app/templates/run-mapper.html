@@ -16,18 +16,29 @@
     <body>
       <div class="container">
         <h1>Failed logins</h1>
-      </div>
-      <form id='submit-form' action="/run_app" method="POST">
-        <div class='submit-fields'>
-          <label for="qd">Query (hours)</label>
-          </div>
-        <div class='submit-fields'>
-          <input type="text" id="qd" name="qd">
-          </div>
-        <div class='submit-fields'>
-        <button onclick="style='background-color: black; border: none;'" id='submit-button' type='submit'>Submit</button>
+        <div class="folium-map">
+            <table>
+              <tr>
+                <th>Date</th>
+                <th>IP Address</th>
+                <th>Origin</th>
+              </tr>
+              {% for i in range(x) %}
+              <tr>
+                <td>
+                  {{ DF_DATE[i] }}
+                </td>
+                <td>
+                  {{ DF_IP[i] }}
+                </td>
+                <td>
+                  {{ DF_ADDR[i] }}
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+            <iframe src="/get_map" height="400px" width="100%">Folium Map</iframe>
         </div>
-      </form>
-      <script src="../static/loader.js"></script>
-    </body> 
+      </div>
+    </body>
 </html>

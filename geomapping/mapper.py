@@ -44,11 +44,17 @@ def geo_mapping(COORDINATES, no_browser=0):
     )
     
     print("mapping coordinates ")
+<<<<<<< HEAD
     try:
         for point in COORDINATES:
             print(
                 point
             )
+=======
+    
+    for point in COORDINATES:
+        try:
+>>>>>>> flaskdev
             folium.Marker(
                 location=[point.latitude, point.longitude],
                 icon=None
@@ -61,8 +67,13 @@ def geo_mapping(COORDINATES, no_browser=0):
                 fill=False,
                 fill_color='#7de8b5'
             ).add_to(m)
+<<<<<<< HEAD
     except AttributeError as e:
         pass
+=======
+        except AttributeError as e:
+            print(e)
+>>>>>>> flaskdev
 
     bounds = m.get_bounds()
     m.fit_bounds(bounds, padding=(20,20))

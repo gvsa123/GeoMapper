@@ -1,5 +1,10 @@
-def run_mapper():
-    """Convert IP_LIST to COORDINATESformat"""
+def run_mapper(qd):
+    """Convert IP_LIST to COORDINATESformat
+    Returns
+    -------
+    QUERY_RESULT dataframe
+
+    """
 
     from geomapping.ip_converter import remaining_queries
     
@@ -13,7 +18,8 @@ def run_mapper():
     from geomapping.ip_converter import json_parser, batch_query
 
     # Extract ip addresses from database
-    QUERY_RESULT = failed_logins()
+    QUERY_RESULT = failed_logins(qd=qd)
+    
     if len(QUERY_RESULT) != 0:
         ip_dataframe = ip_from_query(QUERY_RESULT)
         IP_LIST = df_to_list(ip_dataframe)
@@ -32,8 +38,13 @@ def run_mapper():
         geo_mapping(address)
 
         return ip_dataframe
-    else:
+
+    elif len(QUERY_RESULT) == 0:
         print(f"{len(QUERY_RESULT)} failed login attempts. Exiting")
+
+        return QUERY_RESULT
+
+
 
 if __name__ == "__main__":
     run_mapper()

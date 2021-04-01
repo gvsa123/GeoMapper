@@ -23,7 +23,7 @@ DB = config['MYSQL']['db']
 PKEY_PATH = os.environ['HOME'] + '/.ssh/id_rsa'
 PKEY = paramiko.RSAKey.from_private_key_file(PKEY_PATH, password=SSH_PRIVATE_KEY_PASSWORD)
 
-def failed_logins():
+def failed_logins(qd):
     """Query wordpress database for failed login attempts
 
     Returns
@@ -53,10 +53,12 @@ def failed_logins():
                 )
                 
                 print("sql connection established")
-                x = input("enter how many days to query: ")
+
+                if not bool(qd):
+                    qd = input("enter how many days to query: ")
 
             with connection.cursor() as cursor:
-                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL %s DAY) AND NOW()' % (x))
+                sql_query = ('SELECT * FROM gvsa123aiowps_failed_logins WHERE failed_login_date BETWEEN DATE_SUB(NOW(), INTERVAL %s HOUR) AND NOW()' % (qd)) # DAYS
                 cursor.execute(sql_query)
                 result = cursor.fetchall()
                 assert len(result) > 0, "result empty"

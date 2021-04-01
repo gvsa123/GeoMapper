@@ -6,16 +6,17 @@ body {
 table {
     color: #dcdcdc;
     width: 100%;
-    margin-right: 20px;
     margin-left: 20px;
     border-style: double;
     border-spacing: 5px;
+    position: relative;
     
 }
 
 th, td {
     text-align: left;
     border: 1px solid;
+    padding: 5px;
 }
 .container {
     border-color: rgb(255, 157, 0);
@@ -26,6 +27,8 @@ h1 {
     text-align: center;
 }
 .folium-map {
+    margin: auto;
+    display: block;
     padding: 10px;
     height: 100%;
     width: 100%;
@@ -33,3 +36,31 @@ h1 {
     column-count: 2;
     column-gap: 5rem;
 }
+
+form {
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
+
+iframe {
+    margin-top: 20px;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .submit-fields {
+      padding-bottom: 10px;
+  }
