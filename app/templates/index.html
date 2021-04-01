@@ -10,21 +10,24 @@
         <title>Wordpress Failed Login Attempts</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/folium.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='folium.css') }}">
     </head>
     <body>
       <div class="container">
         <h1>Failed logins</h1>
-          <div class="folium-map">
-            <form action="/run_app" method="POST">
-              <label for="qd">Days to query</label>
-              <input type="text" id="qd" name="qd">
-              <button type='submit'>Submit</button>
-              <!-- pipe qd to x in query_database.py-->
-
-            </form>            
-          </div>
       </div>
-      <script src="" async defer></script>
-    </body>
+      <form id='submit-form' action="/run_app" method="POST">
+        <div class='submit-fields'>
+          <label for="qd">Query (hours)</label>
+          </div>
+        <div class='submit-fields'>
+          <input type="text" id="qd" name="qd">
+          </div>
+        <div class='submit-fields'>
+        <button onclick="style='background-color: black; border: none;'" id='submit-button' type='submit'>Submit</button>
+        </div>
+      </form>
+      <script src="../static/loader.js"></script>
+    </body> 
 </html>
