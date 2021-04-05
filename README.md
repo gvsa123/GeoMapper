@@ -18,4 +18,4 @@ db="DB"
 
 ## sample output
 ![sample out]
-(https://github.com/gvsa123/GeoMapper/tree/master/app/static/sample_output.png)
+(/app/static/sample_output.png)
