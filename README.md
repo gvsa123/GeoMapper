@@ -14,4 +14,8 @@ ssh_private_key_password="SSH_PRIVATE_KEY_PASSWORD"
 [MYSQL]  
 sql_username="SQL_USERNAME"  
 sql_password="SQL_PASSWORD"  
-db="DB"  
+db="DB"
+
+## sample output
+![sample out]
+(https://github.com/gvsa123/GeoMapper/tree/master/app/static/sample_output.png)
