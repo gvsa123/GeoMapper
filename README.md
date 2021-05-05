@@ -17,4 +17,4 @@ sql_password="SQL_PASSWORD"
 db="DB"
 
 ## sample output
-![sample out](/app/static/sample_output.png)
+![sample out](/app/static/sample_output.gif)
