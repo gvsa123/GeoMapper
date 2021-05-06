@@ -1,10 +1,10 @@
-import webbrowser
-import time
 import folium
+import time
+import webbrowser
+
 from os.path import expanduser
 
-
-from geomapping.locator import address_locator, point_extractor
+from locator import address_locator, point_extractor
 
 def render_map():
     """Render map on browser after creation in geo_mapping()"""
