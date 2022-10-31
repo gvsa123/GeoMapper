@@ -1,8 +1,14 @@
 # geomapper
 
-The project is an exercise in creating a data pipeline, basic web development and data processing using python. It queries a MariaDB server for failed wordpress login attempts, converts the logged ip addresses into geolocations, and outputs an html map using a flask and jinja2 framework.
+The project is an exercise in creating a data pipeline, basic web development
+and data processing using python. It queries a MariaDB server for failed wordpress
+login attempts, converts the logged ip addresses into geolocations, and outputs an
+html map using a flask and jinja2 framework.
 
 You need to supply it with a proper config.ini to be able to connect to your database:
+
+Run `python geomapping/mapper.py` for testing. Change `ADDR` in `mapper.py` for
+custom addresses.
 
 ## query_database config.ini
 
