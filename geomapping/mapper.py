@@ -72,18 +72,17 @@ def geo_mapping(COORDINATES, no_browser=0):
 def main():
     
     print("Generating sample.")
+    
     ADDR = [
-        "Tagum Philippines",
-        "Davao Philippines",
-        "Isabela Philippines",
-        "Surigao Philippines",
-        "Marikina Philippines"
+        "walgrove mews calgary",
+        "everglen way calgary",
+        "bridlewood drive calgary"
     ]
 
     LOCATIONS = address_locator(ADDR)
     COORDINATES = point_extractor(LOCATIONS)
     geo_mapping(COORDINATES, no_browser=0)
-    time.sleep(5)
+    time.sleep(2)
     print("Done.")
 
 if __name__ == "__main__":
